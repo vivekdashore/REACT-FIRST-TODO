@@ -1,117 +1,130 @@
 import { useState } from "react"
 import Form from "./components/Form"
 import Navbar from "./components/Navbar"
-import ListGroup from "./ListGroup"
+import ListGroup from "./components/ListGroup"
 
-const App = () =>{
+const App = () => {
 
-const [todos , setTodos] = useState([])
-
-
-const [edit , setEdit] = useState({
-  todo : {},
-  isEdit : false
-})
-
-// let count = 0
-
-const [count , setCount] = useState(0)
-
-//increase count value
-
-
-const increaseCount = () =>{
-//   count = count + 1
-// console.log(count)
-if(count<10){
-  setCount(count + 1)
-} else{
-  
-setCount(0)
-}
-}
+  const [todos, setTodos] = useState([{
+    id: 1,
+    text: "Apple"
+  },
+  {
+    id: 2,
+    text: "Ball"
+  },
+  {
+    id: 3,
+    text: "Cat"
+  }])
 
 
-//decrease count value
+  const [edit, setEdit] = useState({
+    todo: {},
+    isEdit: false
+  })
 
-const decreaseCount = () =>{
-  if (count >0){
-    setCount(count - 1)
-  }
-  else{
-   
-    setCount(10)
-  }
-}
+  // let count = 0
 
-const[theme , setTheme] = useState(false)
+  const [count, setCount] = useState(0)
 
-const changeTheme = () =>{
-  if(theme){
-    setTheme(false)
-  } else {
-    setTheme(true)
-  }
-}
+  //increase count value
 
 
-// remove todo
+  const increaseCount = () => {
+    //   count = count + 1
+    // console.log(count)
+    if (count < 10) {
+      setCount(count + 1)
+    } else {
 
-const removeTodo = (id) =>{
-  setTodos(todos.filter(item =>{
-    if(item.id !== id){
-      return item
+      setCount(0)
     }
-  }))
-
-}
-
-//add todo
-const addTodo = (text) =>{
-setTodos([{id : crypto.randomUUID() , text : text}, ...todos])
-}
-
-//edit Todo
-const editTodo = (todo) => {
-setEdit({
-  todo : todo,
-  isEdit : true
-})
-}
+  }
 
 
-// update Todo
+  //decrease count value
 
-const updateTodo = (updatedTodo) => {
+  const decreaseCount = () => {
+    if (count > 0) {
+      setCount(count - 1)
+    }
+    else {
 
-  // setTodos(todos.map(item =>{
-  //   if(item.id === updatedTodo.id){
-  //     return updatedTodo
-  //   }
-  //     else{
-  //       return item
-      
-  //   }
-  // }))
+      setCount(10)
+    }
+  }
 
-setTodos(todos.map(item => item.id === updatedTodo.id ? updateTodo : item))
+  const [theme, setTheme] = useState(false)
 
-  setEdit ({ todo : {}, isEdit : false})
-}
-
+  const changeTheme = () => {
+    if (theme) {
+      setTheme(false)
+    } else {
+      setTheme(true)
+    }
+  }
 
 
-  return(
+  // remove todo
+
+  const removeTodo = (id) => {
+    setTodos(todos.filter(item => {
+      if (item.id !== id) {
+        return item
+      }
+    }))
+
+  }
+
+  //add todo
+  const addTodo = (text) => {
+    setTodos([{ id: crypto.randomUUID(), text }, ...todos])
+  }
+
+  //edit Todo
+  const editTodo = (todo) => {
+    setEdit({
+      todo: todo,
+      isEdit: true
+    })
+  }
+
+
+  // update Todo
+
+  const updateTodo = (updatedTodo) => {
+
+    // setTodos(todos.map(item =>{
+    //   if(item.id === updatedTodo.id){
+    //     return updatedTodo
+    //   }
+    //     else{
+    //       return item
+
+    //   }
+    // }))
+
+    console.log(updatedTodo)
+
+    setTodos(todos.map(item => item.id === updatedTodo.id ? updatedTodo : item))
+
+    setEdit({ todo: {}, isEdit: false })
+  }
+
+
+
+  return (
     <>
-    <Navbar />
-    <div style={{backgroundColor:theme ? "gray" : "white"}} className="container">
-      <h1>{count}</h1>
-      <button className="btn" onClick={() => increaseCount()}>Increase Count</button>
-      <button className="btn" onClick={() => decreaseCount()}>decrease Count</button>
-      <button className="btn" onClick={() => changeTheme()}>Change Theme</button>
-      <Form  addTodo = {addTodo} edit = {edit} updateTodo = {updateTodo} />
-      <ListGroup  todos = {todos} removeTodo ={removeTodo} editTodo = {editTodo}/>  
-    </div>
+      <Navbar />
+      <div style={{ backgroundColor: theme ? "gray" : "white" }} className="container">
+        <h1>{count}</h1>
+        <button className="btn" onClick={() => increaseCount()}>Increase Count</button>
+        <button className="btn" onClick={() => decreaseCount()}>decrease Count</button>
+        <button className="btn" onClick={() => changeTheme()}>Change Theme</button>
+        <Form addTodo={addTodo} edit={edit} updateTodo={updateTodo} />
+        <ListGroup todos={todos} removeTodo={removeTodo} editTodo={editTodo} />
+      </div>
     </>
   )
 }

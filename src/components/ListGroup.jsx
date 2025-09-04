@@ -1,4 +1,4 @@
-import ListItem from "./components/ListItem"
+import ListItem from "./ListItem"
 
 const ListGroup = ({todos , removeTodo , editTodo}) => {
     return(
